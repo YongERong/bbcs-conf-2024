@@ -1,0 +1,102 @@
+[
+    {
+        "emoji": "😀",
+        "meaning": "grinning face",
+        "utf8": "U+1F600"
+    },
+    {
+        "emoji": "😂",
+        "meaning": "face with tears of joy",
+        "utf8": "U+1F602"
+    },
+    {
+        "emoji": "❤️",
+        "meaning": "red heart",
+        "utf8": "U+2764"
+    },
+    {
+        "emoji": "👍",
+        "meaning": "thumbs up",
+        "utf8": "U+1F44D"
+    },
+    {
+        "emoji": "🎉",
+        "meaning": "party popper",
+        "utf8": "U+1F389"
+    },
+    {
+        "emoji": "🐶",
+        "meaning": "dog face",
+        "utf8": "U+1F436"
+    },
+    {
+        "emoji": "🐱",
+        "meaning": "cat face",
+        "utf8": "U+1F431"
+    },
+    {
+        "emoji": "🍎",
+        "meaning": "red apple",
+        "utf8": "U+1F34E"
+    },
+    {
+        "emoji": "🍕",
+        "meaning": "pizza",
+        "utf8": "U+1F355"
+    },
+    {
+        "emoji": "🎈",
+        "meaning": "balloon",
+        "utf8": "U+1F388"
+    },
+    {
+        "emoji": "🚀",
+        "meaning": "rocket",
+        "utf8": "U+1F680"
+    },
+    {
+        "emoji": "🏀",
+        "meaning": "basketball",
+        "utf8": "U+1F3C0"
+    },
+    {
+        "emoji": "⚽",
+        "meaning": "soccer ball",
+        "utf8": "U+26BD"
+    },
+    {
+        "emoji": "🌟",
+        "meaning": "glowing star",
+        "utf8": "U+1F31F"
+    },
+    {
+        "emoji": "🍦",
+        "meaning": "ice cream",
+        "utf8": "U+1F366"
+    },
+    {
+        "emoji": "🍔",
+        "meaning": "hamburger",
+        "utf8": "U+1F354"
+    },
+    {
+        "emoji": "🏖️",
+        "meaning": "beach with umbrella",
+        "utf8": "U+1F3D6"
+    },
+    {
+        "emoji": "🎵",
+        "meaning": "musical note",
+        "utf8": "U+1F3B5"
+    },
+    {
+        "emoji": "🎮",
+        "meaning": "video game",
+        "utf8": "U+1F3AE"
+    },
+    {
+        "emoji": "📚",
+        "meaning": "books",
+        "utf8": "U+1F4DA"
+    }
+]
