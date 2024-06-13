@@ -19,11 +19,11 @@ JIGSAW_API_KEY = os.getenv("JIGSAW_API_KEY")
 
 def get_words_path(age):
     if age <= 3:
-        return "data/words_1_3.json"
+        return "../data/words_1_3.json"
     elif age <= 6:
-        return "data/words_4_6.json"
+        return "../data/words_4_6.json"
     elif age <= 9:
-        return "data/words_7_9.json"
+        return "../data/words_7_9.json"
     return None
 
 def get_words(words_path, key="word"):
@@ -68,14 +68,14 @@ def extract_text(gemini_output):
 
     return stories, prompts, [word.strip() for word in words_used]
 
-def generate_image(prompt, size="small", model="ead1.0"):
+def generate_image(prompt, size="small", model="sd1.5"):
     endpoint = "https://api.jigsawstack.com/v1/ai/image_generation"
     headers = {
         "Content-Type": "application/json",
         "x-api-key": JIGSAW_API_KEY
     }
     body = {
-        "prompt": prompt,
+        "prompt": "comic style" + prompt,
         "size": size,
         "model": model
     }
@@ -105,7 +105,7 @@ def generate_and_save_images(prompts):
     return images
 
 def generate_audio(text):
-    story_audio = gTTS(text=text, lang="en", tld="co.uk", slow=False)
+    story_audio = gTTS(text=text.replace("*", ""), lang="en", tld="co.uk", slow=False)
     return story_audio
 
 def generate_and_save_story_audio(stories):
@@ -127,28 +127,23 @@ def generate_and_save_word_audio(words):
         except Exception as e:
             print(f"Error generating or saving audio for word '{word}': {e}")
 
-def main():
-    topic = input("Enter the topic: ")
-    # print(f'Topic: {topic}')
-    
-    age = int(input("Enter the age: "))
-    # print(f'Age: {age}')
+def main(topic:str, age:int):
 
     words_path = get_words_path(age)
     words = get_words(words_path)
-    # print(f'List of Words by age: {words}')
     
     gemini_output = generate_story(age, topic, words)
-    # print(f'Output from Gemini: {gemini_output}')
 
     stories, prompts, words_used = extract_text(gemini_output)
     print(f'Stories list: {stories}')
     print(f'Image Prompts list: {prompts}')
     print(f'Words Used list: {words_used}')
 
-    generate_and_save_images(prompts)
+    images = generate_and_save_images(prompts)
     generate_and_save_story_audio(stories)
     generate_and_save_word_audio(words_used)
+
+    return {"paragraphs":stories, "images":images, "words_used":words_used}
 
 
 if __name__ == "__main__":

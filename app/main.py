@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from annotated_text import annotated_text
-from mock.get_story import get_story
+from back.story_generation import main as story_gen
 
 # custom styles
 st.markdown(
@@ -63,21 +63,15 @@ if st.session_state.curr_screen == "selection":
 # Output Container
 if st.session_state.curr_screen == "reading":
     with st.container(border=False):
-
         
         st.button("🔊Read")
-        data = get_story("prompt", 4)
+        data = story_gen("".join(st.session_state.prompts), 9)
         paragraphs = data["paragraphs"]
         images = data["images"]
-        challenge_dict = data["challenge_dict"]
+        words_used = data["words_used"]
 
         for img, para in zip(images, paragraphs):
             # TODO: Locate difficult words
-
-
-
-            #para.lower.split
-
             st.image(img, use_column_width=True)
             st.markdown(para)
             # annotated_text(
