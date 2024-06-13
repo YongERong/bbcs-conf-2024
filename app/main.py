@@ -47,7 +47,7 @@ if st.session_state.curr_screen == "selection":
         for i in range(n):
             col = cols[i]
             with col:
-                st.button(label=f":{"red" if st.session_state._is_pressed[i] == True else "black"}-background[{emojis[i]}]", use_container_width=True, on_click=setState, kwargs={"key":i}, key=i)
+                st.button(label=f":{'red' if st.session_state._is_pressed[i] == True else 'black'}-background[{emojis[i]}]", use_container_width=True, on_click=setState, kwargs={"key":i}, key=i)
         
         def startReading():
             prompts = [emojis[i] for i in range(n) if st.session_state._is_pressed[i] == True]
