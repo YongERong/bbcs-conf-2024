@@ -7,7 +7,7 @@ from dotenv import load_dotenv, find_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import SystemMessage
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
-
+from gtts import gTTS
 
 #load environment variables
 dotenv_path = find_dotenv()
@@ -41,7 +41,7 @@ def generate_story(age, topic, words):
                 )
             ),
             HumanMessagePromptTemplate.from_template("""Create a story for kids ages {age} on {topic} and include only 3 words from the {list} list. 
-                                                    When returning the story, bold the words you used.
+                                                    When returning the story, italics the words you used.
                                                     After each paragraph, include a prompt to generate an image that shows the story of each paragraph.
                                                     When displaying the story, prompt and words, use the following format:
                                                     story: story
@@ -89,6 +89,44 @@ def generate_image(prompt, size="small", model="ead1.0"):
         print(response.text)
         return None
 
+def generate_and_save_images(prompts):
+    images = []
+    for counter, prompt in enumerate(prompts):
+        try:
+            image_data = generate_image(prompt)
+            if image_data:
+                images.append(image_data)
+                # #save image
+                # with open(f'img_{counter}.png', 'wb') as f:
+                #     f.write(image_data.getbuffer())
+        except Exception as e:
+            print(f"Error generating or saving image for prompt {counter}: {e}")
+    print(f"Generated {len(images)} images.")
+    return images
+
+def generate_audio(text):
+    story_audio = gTTS(text=text, lang="en", tld="co.uk", slow=False)
+    return story_audio
+
+def generate_and_save_story_audio(stories):
+    for counter, story in enumerate(stories):
+        try:
+            story_audio = generate_audio(story)
+            story_audio.save(f'data/para_audio/para{counter+1}.mp3')
+        except Exception as e:
+            print(f"Error generating or saving audio for story {counter}: {e}")
+
+def generate_and_save_word_audio(words):
+    for word in words:
+        try:
+            file_path = f'data/word_audio/{word}.mp3'
+            if os.path.exists(file_path):
+                continue
+            word_audio = generate_audio(word)
+            word_audio.save(file_path)
+        except Exception as e:
+            print(f"Error generating or saving audio for word '{word}': {e}")
+
 def main():
     topic = input("Enter the topic: ")
     # print(f'Topic: {topic}')
@@ -108,19 +146,9 @@ def main():
     print(f'Image Prompts list: {prompts}')
     print(f'Words Used list: {words_used}')
 
-    images = []
-    for counter, prompt in enumerate(prompts):
-        image_data = generate_image(prompt)
-        if image_data:
-            images.append(image_data)
-
-            # #save the images
-            # with open(f'img_{counter}.png', 'wb') as f:
-            #     f.write(images[counter].getbuffer())
-
-
-    # print(f"Generated {len(images)} images.")
-
+    generate_and_save_images(prompts)
+    generate_and_save_story_audio(stories)
+    generate_and_save_word_audio(words_used)
 
 
 if __name__ == "__main__":
