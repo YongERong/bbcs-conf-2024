@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from annotated_text import annotated_text
 from back.story_generation import main as story_gen
 
 # custom styles
@@ -74,6 +73,3 @@ if st.session_state.curr_screen == "reading":
             # TODO: Locate difficult words
             st.image(img, use_column_width=True)
             st.markdown(para)
-            # annotated_text(
-
-            # )
